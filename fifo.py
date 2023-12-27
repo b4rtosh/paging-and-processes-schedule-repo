@@ -1,7 +1,7 @@
-#FIFO - First In First Out
-#paging algorithm
-#memorySize - size of memory
-#pageSequence - sequence of pages
+# FIFO - First In First Out
+# paging algorithm
+# memorySize - size of memory
+# pageSequence - sequence of pages
 
 def fifo(memorySize, pageSequence):
     pageFaults = 0
@@ -18,8 +18,10 @@ def fifo(memorySize, pageSequence):
         else:
             frame.remove(pageSequence[i])
             frame.append(pageSequence[i])
-        for i in range(len(frame)):
-            result.append([i, frame[i]])
+        result.append(pageSequence[i])
+        one_frame = str()
+        for j in range(len(frame)): one_frame += str(frame[j]) + " "
+        result.append(one_frame)
     print("Page Faults: ", pageFaults)
     result.append(pageFaults)
     return result

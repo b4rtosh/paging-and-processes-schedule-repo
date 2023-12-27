@@ -4,7 +4,7 @@ The app allows to run a simulation of paging and processes' scheduling.
 ## How to run
 1. Choose simulation type (paging or scheduling) by clicking its button.
 
-### Paging
+### Paging:
 2. Enter the number of frames and the number of pages.
 3. Choose algorithm.
 

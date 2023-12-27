@@ -45,11 +45,11 @@ def execute_algorithm(processes, choice):
 
 def save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes):
     project_path = os.getcwd()
-    if not os.path.exists(project_path + "/tests"):
-        os.mkdir(project_path + "/tests")
+    if not os.path.exists(project_path + "/scheduling"):
+        os.mkdir(project_path + "/scheduling")
     # save file with name: algorithm-date.txt
     file_name = algorithm + "_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".txt"
-    with open(project_path + "/tests/" + file_name, "w") as file:
+    with open(project_path + "/scheduling/" + file_name, "w") as file:
         file.write("Test: " + file_name + "\n")
         file.write("Number of processes: " + str(number) + "\n")
         file.write("Arrival: ")
