@@ -1,16 +1,16 @@
-
 from pages import Ui_MainPages
 from processes import Ui_MainProcesses
 from menu import Ui_MainMenu
 from PySide6.QtWidgets import QApplication, QMainWindow
 import sys
 
-class MainPages (QMainWindow):
+
+class MainPages(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainPages()
         self.ui.setupUi(self)
-        self.ui.button_close.clicked.connect(self.open_menu)
+        self.ui.button_exit.clicked.connect(self.open_menu)
 
     def open_menu(self):
         self.menu = MainMenu()
@@ -18,7 +18,7 @@ class MainPages (QMainWindow):
         self.close()
 
 
-class MainProcesses (QMainWindow):
+class MainProcesses(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainProcesses()
@@ -30,7 +30,8 @@ class MainProcesses (QMainWindow):
         self.menu.show()
         self.close()
 
-class MainMenu (QMainWindow):
+
+class MainMenu(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainMenu()
@@ -49,7 +50,7 @@ class MainMenu (QMainWindow):
         self.close()
 
 
-if (__name__ == "__main__"):
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainMenu()
     window.show()

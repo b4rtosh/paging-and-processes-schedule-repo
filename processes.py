@@ -15,8 +15,8 @@ from PySide6.QtWidgets import (QCheckBox, QComboBox, QFormLayout,
                                QHBoxLayout, QLabel, QMenuBar,
                                QPushButton, QSizePolicy, QSpacerItem, QSpinBox,
                                QStatusBar, QWidget)
-import process
-from dialogProcesses import Ui_DialogProcesses
+import process_gen
+from dialogResult import Ui_DialogResult
 from PySide6.QtWidgets import QDialog, QTableWidgetItem, QHeaderView, QAbstractItemView
 
 processes_list = []
@@ -150,8 +150,6 @@ class Ui_MainProcesses(object):
         self.combo_algorithm = QComboBox(self.formLayoutWidget)
         self.combo_algorithm.setObjectName(u"combo_algorithm")
         self.combo_algorithm.setFont(font1)
-        self.combo_algorithm.addItem("SJF")
-        self.combo_algorithm.addItem("FCFS")
 
         self.formLayout.setWidget(12, QFormLayout.FieldRole, self.combo_algorithm)
 
@@ -191,6 +189,13 @@ class Ui_MainProcesses(object):
 
         self.horizontalLayout.addWidget(self.button_generate)
 
+        self.check_data.stateChanged.connect(self.enable_options)
+        self.check_arrival.stateChanged.connect(self.forbid_replay)
+        self.check_execute.stateChanged.connect(self.forbid_replay)
+        self.spin_arrival.valueChanged.connect(self.forbid_replay)
+        self.spin_execute.valueChanged.connect(self.forbid_replay)
+        self.spin_number.valueChanged.connect(self.forbid_replay)
+
         self.button_exit = QPushButton(self.horizontalLayoutWidget)
         self.button_exit.setObjectName(u"button_exit")
         sizePolicy2.setHeightForWidth(self.button_exit.sizePolicy().hasHeightForWidth())
@@ -210,6 +215,8 @@ class Ui_MainProcesses(object):
         self.retranslateUi(MainProcesses)
 
         QMetaObject.connectSlotsByName(MainProcesses)
+        self.combo_algorithm.addItem("SJF")
+        self.combo_algorithm.addItem("FCFS")
         self.button_generate.clicked.connect(self.generate_clicked)
     # setupUi
 
@@ -234,22 +241,22 @@ class Ui_MainProcesses(object):
 
     def show_data(self, processes):
         self.dialog = QDialog()
-        self.dialog.ui = Ui_DialogProcesses()
+        self.dialog.ui = Ui_DialogResult()
         self.dialog.ui.setupUi(self.dialog)
         length = len(processes) - 1
-        self.dialog.ui.table_queue.setColumnCount(4)
+        self.dialog.ui.table.setColumnCount(4)
         # resize each column
-        self.dialog.ui.table_queue.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.dialog.ui.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         # disable editing
-        self.dialog.ui.table_queue.verticalHeader().setVisible(False)
-        self.dialog.ui.table_queue.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.dialog.ui.table_queue.setRowCount(length)
-        self.dialog.ui.table_queue.setHorizontalHeaderLabels(["Process", "Arrival", "Execution", "Waiting"])
+        self.dialog.ui.table.verticalHeader().setVisible(False)
+        self.dialog.ui.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.dialog.ui.table.setRowCount(length)
+        self.dialog.ui.table.setHorizontalHeaderLabels(["Process", "Arrival", "Execution", "Waiting"])
         for i in range(length):
-            self.dialog.ui.table_queue.setItem(i, 0, QTableWidgetItem(str(i)))
-            self.dialog.ui.table_queue.setItem(i, 1, QTableWidgetItem(str(processes[i].arrival)))
-            self.dialog.ui.table_queue.setItem(i, 2, QTableWidgetItem(str(processes[i].execute)))
-            self.dialog.ui.table_queue.setItem(i, 3, QTableWidgetItem(str(processes[i].waiting)))
+            self.dialog.ui.table.setItem(i, 0, QTableWidgetItem(str(i)))
+            self.dialog.ui.table.setItem(i, 1, QTableWidgetItem(str(processes[i].arrival)))
+            self.dialog.ui.table.setItem(i, 2, QTableWidgetItem(str(processes[i].execute)))
+            self.dialog.ui.table.setItem(i, 3, QTableWidgetItem(str(processes[i].waiting)))
         self.dialog.ui.label_result.setText(str(processes[-1]))
         self.dialog.ui.button_close.clicked.connect(self.dialog.close)
         self.dialog.exec()
@@ -266,8 +273,27 @@ class Ui_MainProcesses(object):
         if self.check_data.isChecked():
             processes = processes_list.copy()
         else:
-            processes_list = process.generate_processes(number, random_execute, execute, random_arrival, arrival)
+            processes_list = process_gen.generate_processes(number, random_execute, execute, random_arrival, arrival)
             processes = processes_list.copy()
-        processes = process.execute_algorithm(processes, self.combo_algorithm.currentText())
-        process.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes)
+        processes = process_gen.execute_algorithm(processes, self.combo_algorithm.currentText())
+        process_gen.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes)
+        self.check_data.setChecked(False)
         self.show_data(processes)
+
+    def enable_options(self):
+        if self.check_data.isChecked():
+            self.spin_number.setEnabled(False)
+            self.check_execute.setEnabled(False)
+            self.spin_execute.setEnabled(False)
+            self.check_arrival.setEnabled(False)
+            self.spin_arrival.setEnabled(False)
+        else:
+            self.spin_number.setEnabled(True)
+            self.check_execute.setEnabled(True)
+            self.spin_execute.setEnabled(True)
+            self.check_arrival.setEnabled(True)
+            self.spin_arrival.setEnabled(True)
+
+    def forbid_replay(self):
+        self.check_data.setChecked(False)
+        self.check_data.setEnabled(False)
