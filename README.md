@@ -1,5 +1,5 @@
 # paging-and-scheduling-repo
-The app allows to run a simulation of paging and processes' scheduling.
+The app allows to run a simulation of paging and processes' scheduling. The GUI is based on PySide6.
 
 ## How to run
 1. Choose simulation type (paging or scheduling) by clicking its button.
