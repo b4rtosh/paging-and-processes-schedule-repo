@@ -101,7 +101,7 @@ class Ui_MainProcesses(object):
         self.spin_execute = QSpinBox(self.formLayoutWidget)
         self.spin_execute.setObjectName(u"spin_execute")
         self.spin_execute.setMinimum(1)
-        self.spin_execute.setMaximum(20)
+        self.spin_execute.setMaximum(40)
 
         self.formLayout.setWidget(6, QFormLayout.FieldRole, self.spin_execute)
 
@@ -276,7 +276,7 @@ class Ui_MainProcesses(object):
             processes_list = process_gen.generate_processes(number, random_execute, execute, random_arrival, arrival)
             processes = processes_list.copy()
         processes = process_gen.execute_algorithm(processes, self.combo_algorithm.currentText())
-        process_gen.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes)
+        process_gen.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes, processes_list)
         self.check_data.setChecked(False)
         self.show_data(processes)
 
