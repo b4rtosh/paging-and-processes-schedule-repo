@@ -13,7 +13,7 @@ from PySide6.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout, Q
                                QSpinBox, QStatusBar, QWidget, QDialog, QTableWidgetItem, QHeaderView, QAbstractItemView)
 from dialogResult import Ui_DialogResult
 import page_gen
-pages_list = []
+sequence = []
 
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
@@ -203,22 +203,20 @@ class Ui_MainPages(object):
 
     def generate(self):
         self.check_data.setEnabled(True)
-        global pages_list
+        global sequence
         amount = self.spin_amount.value()
         max_page = self.spin_page.value()
         memory_size = self.spin_size.value()
         algorithm = self.combo_algorithm.currentText()
         if self.check_data.isChecked():
-            pages = pages_list.copy()
+            pages = sequence.copy()
         else:
             pages = page_gen.generate_pages(amount, max_page)
-            pages_list = pages.copy()
-        result = page_gen.execute_algorithm(memory_size, pages, algorithm)
-        page_gen.save_test(memory_size, amount, algorithm, max_page, result)
-        self.show_result(result)
+            sequence = pages.copy()
+        pages = page_gen.execute_algorithm(memory_size, pages, algorithm)
+        page_gen.save_test(memory_size, amount, algorithm, max_page, pages, sequence)
+        self.show_result(pages)
         self.check_data.setChecked(False)
-
-
 
     def forbid_replay(self):
         self.check_data.setChecked(False)

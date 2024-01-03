@@ -5,6 +5,7 @@ import os
 import datetime
 from tabulate import tabulate
 
+
 class Process:
     def __init__(self, execute_arg, arrival):
         self.execute = execute_arg
