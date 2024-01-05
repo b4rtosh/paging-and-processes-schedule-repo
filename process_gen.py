@@ -6,10 +6,10 @@ import datetime
 from tabulate import tabulate
 
 
-class Process:
-    def __init__(self, execute_arg, arrival):
+class Process:  # class for processes
+    def __init__(self, execute_arg, arrival_arg):
         self.execute = execute_arg
-        self.arrival = arrival
+        self.arrival = arrival_arg
         self.waiting = 0
 
 
@@ -20,7 +20,7 @@ def generate_processes(number, execute_choice, execute, come_choice, arrival):
     if arrival == 0:
         come_choice = False
     processes = []
-    if execute_choice and come_choice:
+    if execute_choice and come_choice:  # generate random processes according to choices
         for i in range(number):
             processes.append(Process(secrets.randbelow(execute) + 1, secrets.randbelow(arrival + 1)))
     elif execute_choice and not come_choice:
@@ -35,7 +35,7 @@ def generate_processes(number, execute_choice, execute, come_choice, arrival):
     return processes
 
 
-def execute_algorithm(processes, choice):
+def execute_algorithm(processes, choice):   # execute algorithm based on choice
     if choice == "FCFS":
         processes = fcfs(processes)
     else:
@@ -44,7 +44,7 @@ def execute_algorithm(processes, choice):
 
 
 def save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes, gen_processes):
-    project_path = os.getcwd()
+    project_path = os.getcwd()  # get current working directory
     if not os.path.exists(project_path + "/scheduling"):
         os.mkdir(project_path + "/scheduling")
     gen_table = []
@@ -55,7 +55,7 @@ def save_test(number, random_execute, execute, random_arrival, arrival, algorith
         result_table.append([processes[i].arrival, processes[i].execute, processes[i].waiting])
     # save file with name: algorithm-date.txt
     file_name = algorithm + "_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".txt"
-    with open(project_path + "/scheduling/" + file_name, "w") as file:
+    with open(project_path + "/scheduling/" + file_name, "w") as file:  # open file and write results
         file.write("Test: " + file_name + "\n")
         file.write("Number of processes: " + str(number) + "\n")
         file.write("Arrival: ")

@@ -1,23 +1,14 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'dialogResult.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.1
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+# Form generated from reading UI file 'dialogResult.ui'
+# Created by: Qt User Interface Compiler version 6.6.1
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QDialog, QHBoxLayout, QHeaderView,
-    QLabel, QPushButton, QSizePolicy, QSpacerItem,
-    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
+
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, Qt)
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import (QHBoxLayout, QLabel, QPushButton, QSizePolicy, QSpacerItem,
+                               QTableWidget, QVBoxLayout, QWidget)
+
 
 class Ui_DialogResult(object):
     def setupUi(self, DialogResult):
@@ -61,7 +52,6 @@ class Ui_DialogResult(object):
 
         self.verticalLayout.addItem(self.verticalSpacer)
 
-
         self.horizontalLayout.addLayout(self.verticalLayout)
 
         self.horizontalLayoutWidget_2 = QWidget(DialogResult)
@@ -75,10 +65,10 @@ class Ui_DialogResult(object):
 
         self.horizontalLayout_2.addWidget(self.button_close)
 
-
         self.retranslateUi(DialogResult)
 
         QMetaObject.connectSlotsByName(DialogResult)
+
     # setupUi
 
     def retranslateUi(self, DialogResult):
@@ -87,4 +77,3 @@ class Ui_DialogResult(object):
         self.label_result.setText("")
         self.button_close.setText(QCoreApplication.translate("DialogResult", u"Close", None))
     # retranslateUi
-

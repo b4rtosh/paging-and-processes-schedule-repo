@@ -1,7 +1,7 @@
 # Description: First Come First Serve algorithm
 
 def fcfs(processes):
-    # sort processes by arrival time
+    # sort processes by arrival_arg time
     processes.sort(key=lambda x: x.arrival)
     head = processes[0].arrival  # time of simulation execution
     result = 0  # final average waiting time

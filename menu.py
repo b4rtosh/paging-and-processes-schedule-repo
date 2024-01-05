@@ -1,23 +1,12 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'menu.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.1
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+# Form generated from reading UI file 'menu.ui'
+# Created by: Qt User Interface Compiler version 6.6.1
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QLabel, QMainWindow, QMenuBar,
-    QPushButton, QSizePolicy, QStatusBar, QVBoxLayout,
-    QWidget)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, Qt)
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import (QLabel, QMenuBar, QPushButton, QSizePolicy, QStatusBar, QVBoxLayout, QWidget)
+
 
 class Ui_MainMenu(object):
     def setupUi(self, MainMenu):
@@ -74,6 +63,7 @@ class Ui_MainMenu(object):
         self.retranslateUi(MainMenu)
 
         QMetaObject.connectSlotsByName(MainMenu)
+
     # setupUi
 
     def retranslateUi(self, MainMenu):
@@ -82,4 +72,3 @@ class Ui_MainMenu(object):
         self.button_processes.setText(QCoreApplication.translate("MainMenu", u"Processes scheduling", None))
         self.button_paging.setText(QCoreApplication.translate("MainMenu", u"Paging", None))
     # retranslateUi
-

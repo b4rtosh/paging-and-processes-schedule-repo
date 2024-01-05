@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'pages.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.1
-################################################################################
+# Form generated from reading UI file 'pages.ui'
+# Created by: Qt User Interface Compiler version 6.6.1
+
 
 from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect)
 from PySide6.QtGui import QFont
@@ -13,7 +11,9 @@ from PySide6.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout, Q
                                QSpinBox, QWidget, QDialog, QTableWidgetItem, QHeaderView, QAbstractItemView)
 from dialogResult import Ui_DialogResult
 import page_gen
+
 sequence = []
+
 
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
@@ -165,7 +165,7 @@ class Ui_MainPages(object):
         self.spin_amount.valueChanged.connect(self.forbid_replay)
         self.check_data.stateChanged.connect(self.enable_options)
 
-        self.button_generate.clicked.connect(self.generate)
+        self.button_generate.clicked.connect(self.generate)  # connect generate button to generate function
         self.combo_algorithm.addItem('FIFO')
         self.combo_algorithm.addItem('LRU')
         MainPages.setCentralWidget(self.centralwidget)
@@ -186,18 +186,19 @@ class Ui_MainPages(object):
         self.label_algorithm.setText(QCoreApplication.translate("MainPages", u"Choose algorithm:", None))
         self.button_generate.setText(QCoreApplication.translate("MainPages", u"Generate", None))
         self.button_exit.setText(QCoreApplication.translate("MainPages", u"Exit", None))
+
     # retranslateUi
 
-    def generate(self):
+    def generate(self):  # function to generate pages
         self.check_data.setEnabled(True)
         global sequence
         amount = self.spin_amount.value()
         max_page = self.spin_page.value()
         memory_size = self.spin_size.value()
         algorithm = self.combo_algorithm.currentText()
-        if self.check_data.isChecked():
+        if self.check_data.isChecked():  # if checked use data from previous test
             pages = sequence.copy()
-        else:
+        else:  # if not generate new pages
             pages = page_gen.generate_pages(amount, max_page)
             sequence = pages.copy()
         pages = page_gen.execute_algorithm(memory_size, pages, algorithm)
@@ -205,11 +206,11 @@ class Ui_MainPages(object):
         self.show_result(pages)
         self.check_data.setChecked(False)
 
-    def forbid_replay(self):
+    def forbid_replay(self):  # function to forbid replaying test
         self.check_data.setChecked(False)
         self.check_data.setEnabled(False)
 
-    def enable_options(self):
+    def enable_options(self):  # function to enable options
         if self.check_data.isChecked():
             self.spin_page.setEnabled(False)
             self.spin_amount.setEnabled(False)
@@ -217,7 +218,7 @@ class Ui_MainPages(object):
             self.spin_page.setEnabled(True)
             self.spin_amount.setEnabled(True)
 
-    def show_result(self, result):
+    def show_result(self, result):  # function to show result
         self.dialog = QDialog()
         self.dialog.ui = Ui_DialogResult()
         self.dialog.ui.setupUi(self.dialog)
@@ -230,7 +231,7 @@ class Ui_MainPages(object):
         self.dialog.ui.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.dialog.ui.table.setRowCount(length)
         self.dialog.ui.table.setHorizontalHeaderLabels(["Page", "Frame"])
-        for i in range(length):
+        for i in range(length):  # add pages and frames to table
             self.dialog.ui.table.setItem(i, 0, QTableWidgetItem(str(result[i * 2])))
             self.dialog.ui.table.setItem(i, 1, QTableWidgetItem(str(result[i * 2 + 1])))
         self.dialog.ui.label_result.setText(str(result[-1]))

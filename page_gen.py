@@ -6,14 +6,14 @@ from fifo import fifo
 from lru import lru
 
 
-def generate_pages(amount_of_pages, random_pages):
+def generate_pages(amount_of_pages, random_pages):  # generate random pages
     pages = []
     for i in range(amount_of_pages):
-        pages.append(secrets.randbelow(random_pages + 1))
+        pages.append(secrets.randbelow(random_pages + 1))   # generate from 0 to random pages (included)
     return pages
 
 
-def execute_algorithm(memory_size, pages, choice):
+def execute_algorithm(memory_size, pages, choice):  # execute algorithm based on choice
     if choice == "FIFO":
         pages = fifo(memory_size, pages)
     else:
@@ -22,15 +22,16 @@ def execute_algorithm(memory_size, pages, choice):
 
 
 def save_test(memory_size, amount, algorithm, max_page, result, sequence):
-    project_path = os.getcwd()
-    if not os.path.exists(project_path + "/paging"):
+    project_path = os.getcwd()  # get current working directory
+    if not os.path.exists(project_path + "/paging"):  # create directory if it doesn't exist
         os.mkdir(project_path + "/paging")
     # save file with name: algorithm-date.txt
-    file_name = algorithm + "_" + str(datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".txt"
+    file_name = algorithm + "_" + str(
+        datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")) + ".txt"
     result_table = []
     for i in range(0, len(result) - 1, 2):
         result_table.append([result[i], result[i + 1]])
-    with open(project_path + "/paging/" + file_name, "w") as file:
+    with open(project_path + "/paging/" + file_name, "w") as file:  # open file and write results
         file.write("Test: " + file_name + "\n")
         file.write("Size of memory: " + str(memory_size) + "\n")
         file.write("Amount of pages in sequence: " + str(amount) + "\n")

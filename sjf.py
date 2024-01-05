@@ -1,12 +1,12 @@
 # Description: Shortest Job First algorithm
 
 def sjf(processes):
-    # sort by arrival time
+    # sort by arrival_arg time
     processes.sort(key=lambda x: x.arrival)
     head = processes[0].arrival  # time of simulation execution
     result = 0  # final average waiting time
     for i in range(len(processes)):
-        for j in range(i, len(processes), 1):  # sort by execute time if arrival time is less then head
+        for j in range(i, len(processes), 1):  # sort by execute time if arrival_arg time is less then head
             if processes[j].arrival <= head:
                 if processes[j].execute < processes[i].execute:  # swap processes if execute time is less
                     processes[j], processes[i] = processes[i], processes[j]
