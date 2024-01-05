@@ -8,9 +8,9 @@
 
 from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect)
 from PySide6.QtGui import QFont
-from PySide6.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout, QLabel, QMenu,
-                               QMenuBar, QPushButton, QSizePolicy, QSpacerItem,
-                               QSpinBox, QStatusBar, QWidget, QDialog, QTableWidgetItem, QHeaderView, QAbstractItemView)
+from PySide6.QtWidgets import (QCheckBox, QComboBox, QFormLayout, QHBoxLayout, QLabel,
+                               QPushButton, QSizePolicy, QSpacerItem,
+                               QSpinBox, QWidget, QDialog, QTableWidgetItem, QHeaderView, QAbstractItemView)
 from dialogResult import Ui_DialogResult
 import page_gen
 sequence = []
@@ -94,7 +94,7 @@ class Ui_MainPages(object):
         sizePolicy.setHeightForWidth(self.spin_amount.sizePolicy().hasHeightForWidth())
         self.spin_amount.setSizePolicy(sizePolicy)
         self.spin_amount.setMinimum(1)
-        self.spin_amount.setMaximum(20)
+        self.spin_amount.setMaximum(50)
 
         self.formLayout.setWidget(4, QFormLayout.FieldRole, self.spin_amount)
 
@@ -163,24 +163,12 @@ class Ui_MainPages(object):
 
         self.spin_page.valueChanged.connect(self.forbid_replay)
         self.spin_amount.valueChanged.connect(self.forbid_replay)
-        self.spin_size.valueChanged.connect(self.forbid_replay)
         self.check_data.stateChanged.connect(self.enable_options)
 
         self.button_generate.clicked.connect(self.generate)
         self.combo_algorithm.addItem('FIFO')
         self.combo_algorithm.addItem('LRU')
         MainPages.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainPages)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 29))
-        self.menuPages_generator = QMenu(self.menubar)
-        self.menuPages_generator.setObjectName(u"menuPages_generator")
-        MainPages.setMenuBar(self.menubar)
-        self.statusbar = QStatusBar(MainPages)
-        self.statusbar.setObjectName(u"statusbar")
-        MainPages.setStatusBar(self.statusbar)
-
-        self.menubar.addAction(self.menuPages_generator.menuAction())
 
         self.retranslateUi(MainPages)
 
@@ -189,16 +177,15 @@ class Ui_MainPages(object):
     # setupUi
 
     def retranslateUi(self, MainPages):
-        MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"MainWindow", None))
+        MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Generator", None))
         self.label_data.setText(QCoreApplication.translate("MainPages", u"Use data from previous test: ", None))
         self.check_data.setText(QCoreApplication.translate("MainPages", u"checked - yes", None))
         self.label_size.setText(QCoreApplication.translate("MainPages", u"Memory size:", None))
-        self.label_amount.setText(QCoreApplication.translate("MainPages", u"Amount of pages:", None))
-        self.label_page.setText(QCoreApplication.translate("MainPages", u"Maximum page size:", None))
+        self.label_amount.setText(QCoreApplication.translate("MainPages", u"Amount of pages in sequence:", None))
+        self.label_page.setText(QCoreApplication.translate("MainPages", u"Maximum page number:", None))
         self.label_algorithm.setText(QCoreApplication.translate("MainPages", u"Choose algorithm:", None))
         self.button_generate.setText(QCoreApplication.translate("MainPages", u"Generate", None))
         self.button_exit.setText(QCoreApplication.translate("MainPages", u"Exit", None))
-        self.menuPages_generator.setTitle(QCoreApplication.translate("MainPages", u"Pages generator", None))
     # retranslateUi
 
     def generate(self):
@@ -225,12 +212,10 @@ class Ui_MainPages(object):
     def enable_options(self):
         if self.check_data.isChecked():
             self.spin_page.setEnabled(False)
-            self.spin_size.setEnabled(False)
             self.spin_amount.setEnabled(False)
         else:
             self.spin_page.setEnabled(True)
             self.spin_amount.setEnabled(True)
-            self.spin_size.setEnabled(True)
 
     def show_result(self, result):
         self.dialog = QDialog()

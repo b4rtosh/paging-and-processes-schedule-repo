@@ -32,9 +32,9 @@ def save_test(memory_size, amount, algorithm, max_page, result, sequence):
         result_table.append([result[i], result[i + 1]])
     with open(project_path + "/paging/" + file_name, "w") as file:
         file.write("Test: " + file_name + "\n")
-        file.write("Number of pages: " + str(amount) + "\n")
         file.write("Size of memory: " + str(memory_size) + "\n")
-        file.write("Max page size: " + str(max_page) + "\n")
+        file.write("Amount of pages in sequence: " + str(amount) + "\n")
+        file.write("Max page number: " + str(max_page) + "\n")
         file.write("Algorithm: " + algorithm + "\n")
         file.write("Page faults: " + str(result[-1]) + "\n")
         file.write("Sequence: " + str(sequence) + "\n")

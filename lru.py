@@ -5,25 +5,25 @@
 
 def lru(memorySize, pageSequence):
     pageFaults = 0
-    frame = []  # used to keep track of the pages in the frame
+    memory = []  # used to keep track of the pages in the memory
     result = []  # used to return results
     last_used = []  # used to keep track of the last used page
     for i in range(len(pageSequence)):
-        if pageSequence[i] not in frame:
-            if len(frame) < memorySize:  # if frame is not full add page to frame
-                frame.append(pageSequence[i])
+        if pageSequence[i] not in memory:
+            if len(memory) < memorySize:  # if memory is not full add page to memory
+                memory.append(pageSequence[i])
                 last_used.append(pageSequence[i])
-            else:  # if frame is full replace the least recently
-                frame[frame.index(last_used[0])] = pageSequence[i]  # find and replace least recently used page in frame
-                last_used.pop(0)  # remove page and add new one to the end of the list
+            else:  # if memory is full replace the least recently
+                memory[memory.index(last_used[0])] = pageSequence[i] # find and replace least recently used page in memory
+                last_used.pop(0)  # remove page and add new one to the end
                 last_used.append(pageSequence[i])
             pageFaults += 1
-        else:  # if page is in frame update last used page and leave frame as it is
-            last_used.remove(pageSequence[i])
+        else:  # if page is in memory update last used page and leave memory as it is
+            last_used.remove(pageSequence[i])   # remove page from queue and add it to the end
             last_used.append(pageSequence[i])
-        result.append(pageSequence[i])  # add page and frame to result
-        one_frame = str()
-        for j in range(len(frame)): one_frame += str(frame[j]) + " "
-        result.append(one_frame)
+        result.append(pageSequence[i])  # add page and memory to result
+        frames = str()
+        for j in range(len(memory)): frames += str(memory[j]) + " "
+        result.append(frames)
     result.append(pageFaults)  # add page faults to result for further analysis
     return result
