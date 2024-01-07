@@ -13,13 +13,12 @@ def fifo(memorySize, pageSequence):
             if len(memory) < memorySize: # if memory is not full add page to memory
                 memory.append(pageSequence[i])
                 last_used.append(pageSequence[i])
-            else:   # if memory is full replace the recently used page with new page
-                memory[memory.index(last_used[-1])] = pageSequence[i]
-                last_used[-1] = pageSequence[i] # update last used page
+            else:   # if memory is full replace the firstly added page with new page
+                memory[memory.index(last_used[0])] = pageSequence[i]
+                last_used.pop(0)    # remove page and add new one to the end
+                last_used.append(pageSequence[i])
             pageFaults += 1 # increment page faults
-        else:   # if page is in memory update last used page and leve memory as it is
-            last_used.remove(pageSequence[i])
-            last_used.append(pageSequence[i])
+        # if page is in memory leave it as it is
         result.append(pageSequence[i])  # add page and memory to result
         frames = str()
         for j in range(len(memory)): frames += str(memory[j]) + " "
