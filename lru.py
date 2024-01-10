@@ -18,10 +18,11 @@ def lru(memorySize, pageSequence):
                 last_used.pop(0)  # remove page and add new one to the end
                 last_used.append(pageSequence[i])
             pageFaults += 1
-        else:  # if page is in memory update last used page and leave memory as it is
+        else:  # if page is in memory update last_used page and leave memory as it is
             last_used.remove(pageSequence[i])   # remove page from queue and add it to the end
             last_used.append(pageSequence[i])
-        result.append(pageSequence[i])  # add page and memory to result
+        # below code is used for results
+        result.append(pageSequence[i])
         frames = str()
         for j in range(len(memory)): frames += str(memory[j]) + " "
         result.append(frames)

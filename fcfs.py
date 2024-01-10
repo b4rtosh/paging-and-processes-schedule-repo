@@ -1,4 +1,4 @@
-# Description: First Come First Serve algorithm
+# FCFS - First Come First Serve algorithm
 
 def fcfs(processes):
     # sort processes by arrival_arg time

@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
-################################################################################
-## Form generated from reading UI file 'processes.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.1
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
+# Form generated from reading UI file 'processes.ui'
+# Created by: Qt User Interface Compiler version 6.6.1
+
 
 from PySide6.QtCore import (QCoreApplication, QLocale,
                             QMetaObject, QRect, Qt)
@@ -218,6 +214,7 @@ class Ui_MainProcesses(object):
         self.combo_algorithm.addItem("SJF")
         self.combo_algorithm.addItem("FCFS")
         self.button_generate.clicked.connect(self.generate_clicked)
+
     # setupUi
 
     def retranslateUi(self, MainProcesses):
@@ -228,9 +225,9 @@ class Ui_MainProcesses(object):
         self.check_execute.setText(QCoreApplication.translate("MainProcesses", u"checked - yes", None))
         self.label_execute.setText(QCoreApplication.translate("MainProcesses", u"Range of execution time:", None))
         self.label_r_arrival.setText(
-            QCoreApplication.translate("MainProcesses", u"Random arrival time for every process:", None))
+            QCoreApplication.translate("MainProcesses", u"Random arrival_arg time for every process:", None))
         self.check_arrival.setText(QCoreApplication.translate("MainProcesses", u"checked - yes", None))
-        self.label_arrival.setText(QCoreApplication.translate("MainProcesses", u"Range of arrival time:", None))
+        self.label_arrival.setText(QCoreApplication.translate("MainProcesses", u"Range of arrival_arg time:", None))
         self.label_algorithm.setText(QCoreApplication.translate("MainProcesses", u"Choose algorithm:", None))
         self.label_data.setText(QCoreApplication.translate("MainProcesses", u"Use data from previous test: ", None))
         self.check_data.setText(QCoreApplication.translate("MainProcesses", u"checked - yes", None))
@@ -276,7 +273,8 @@ class Ui_MainProcesses(object):
             processes_list = process_gen.generate_processes(number, random_execute, execute, random_arrival, arrival)
             processes = processes_list.copy()
         processes = process_gen.execute_algorithm(processes, self.combo_algorithm.currentText())
-        process_gen.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes, processes_list)
+        process_gen.save_test(number, random_execute, execute, random_arrival, arrival, algorithm, processes,
+                              processes_list)
         self.check_data.setChecked(False)
         self.show_data(processes)
 
